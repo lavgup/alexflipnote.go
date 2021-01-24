@@ -1,14 +1,18 @@
 package alexflipnote
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
+	"strings"
 )
 
 const baseURL = "https://api.alexflipnote.dev/"
+
+var httpClient = &http.Client{}
 
 // Client contains fields for interacting with the API
 type Client struct {
@@ -29,17 +33,12 @@ func NewClient(token string) *Client {
 }
 
 // MakeRequest makes a request to the API
-func (client *Client) MakeRequest(endpoint string, params url.Values) ([]byte, error) {
-	HttpClient := &http.Client{}
-
+func (client *Client) MakeRequest(endpoint string, params url.Values) (interface{}, error) {
 	endpointURL := baseURL + endpoint
 
 	if len(params) > 0 {
 		endpointURL = endpointURL + "?" + params.Encode()
 	}
-
-	fmt.Println(len(params))
-	fmt.Println(endpointURL)
 
 	req, err := http.NewRequest("GET", endpointURL, nil)
 	if err != nil {
@@ -48,7 +47,7 @@ func (client *Client) MakeRequest(endpoint string, params url.Values) ([]byte, e
 
 	req.Header.Set("Authorization", client.Token)
 
-	res, err := HttpClient.Do(req)
+	res, err := httpClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -61,6 +60,18 @@ func (client *Client) MakeRequest(endpoint string, params url.Values) ([]byte, e
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
+	}
+
+	content := http.DetectContentType(body)
+	// JSON response
+	if strings.HasPrefix(content, "text/plain") {
+		var data map[string]interface{}
+
+		if err := json.Unmarshal(body, &data); err != nil {
+			return nil, err
+		}
+
+		return data, nil
 	}
 
 	return body, nil

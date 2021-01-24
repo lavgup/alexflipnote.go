@@ -7,69 +7,82 @@ import (
 	"strconv"
 )
 
-func (client *Client) Achievement(text string, icon int) ([]byte, error) {
+// Achievement returns an "achievement" image
+func (client *Client) Achievement(text string, icon int) (interface{}, error) {
 	return client.MakeRequest("achievement", url.Values{
 		"text": {text},
 		"icon": {strconv.Itoa(icon)},
 	})
 }
 
-func (client *Client) AmIAJoke(image *url.URL) ([]byte, error) {
+// AmIAJoke returns an "am i a joke" image
+func (client *Client) AmIAJoke(image *url.URL) (interface{}, error) {
 	return client.MakeRequest("amiajoke", url.Values{
 		"image": {image.String()},
 	})
 }
 
-func (client *Client) Bad(image url.URL) ([]byte, error) {
+// Bad returns a "bad" image
+func (client *Client) Bad(image url.URL) (interface{}, error) {
 	return client.MakeRequest("bad", url.Values{
 		"image": {image.String()},
 	})
 }
 
-func (client *Client) Birb() ([]byte, error) {
+// Birb returns a "birb" image
+func (client *Client) Birb() (interface{}, error) {
 	return client.MakeRequest("birb", url.Values{})
 }
 
-func (client *Client) Calling(text string) ([]byte, error) {
+// Calling returns a "calling" image
+func (client *Client) Calling(text string) (interface{}, error) {
 	return client.MakeRequest("calling", url.Values{
 		"text": {text},
 	})
 }
 
-func (client *Client) Captcha(text string) ([]byte, error) {
+// Captcha returns a "captcha" image
+func (client *Client) Captcha(text string) (interface{}, error) {
 	return client.MakeRequest("captcha", url.Values{
 		"text": {text},
 	})
 }
 
-func (client *Client) Cats() ([]byte, error) {
+// Cats returns a "cats" image
+func (client *Client) Cats() (interface{}, error) {
 	return client.MakeRequest("cats", url.Values{})
 }
 
-func (client *Client) Challenge(text string, icon int) ([]byte, error) {
+// Challenge returns a "challenge" image
+func (client *Client) Challenge(text string, icon int) (interface{}, error) {
 	return client.MakeRequest("achievement", url.Values{
 		"text": {text},
 		"icon": {strconv.Itoa(icon)},
 	})
 }
 
-func (client *Client) ColorHex(hex string) ([]byte, error) {
+// ColorHex returns information on a hex code
+func (client *Client) ColorHex(hex string) (interface{}, error) {
 	return client.MakeRequest(fmt.Sprint("color/", hex), url.Values{})
 }
 
-func (client *Client) ColorGitHub() ([]byte, error) {
+// ColorGitHub returns information on the colors of programming languages on GitHub
+func (client *Client) ColorGitHub() (interface{}, error) {
 	return client.MakeRequest("color/github", url.Values{})
 }
 
-func (client *Client) ColorImage(hex string) ([]byte, error) {
+// ColorImage returns an image of a color
+func (client *Client) ColorImage(hex string) (interface{}, error) {
 	return client.MakeRequest(fmt.Sprint("color/image/", hex), url.Values{})
 }
 
-func (client *Client) ColorImageGradient(hex string) ([]byte, error) {
+// ColorImageGradient returns a image of different gradients of a color
+func (client *Client) ColorImageGradient(hex string) (interface{}, error) {
 	return client.MakeRequest(fmt.Sprint("color/image/gradient/", hex), url.Values{})
 }
 
-func (client *Client) Colourify(image url.URL, c, b string) ([]byte, error) {
+// Colourify returns a "colourified" image
+func (client *Client) Colourify(image url.URL, c, b string) (interface{}, error) {
 	return client.MakeRequest("colourify", url.Values{
 		"image": {image.String()},
 		"c":     {c},
@@ -77,31 +90,36 @@ func (client *Client) Colourify(image url.URL, c, b string) ([]byte, error) {
 	})
 }
 
-func (client *Client) DidYouMean(top, bottom string) ([]byte, error) {
+// DidYouMean returns a "did you mean" image
+func (client *Client) DidYouMean(top, bottom string) (interface{}, error) {
 	return client.MakeRequest("didyoumean", url.Values{
 		"top":    {top},
 		"bottom": {bottom},
 	})
 }
 
-func (client *Client) Dogs() ([]byte, error) {
+// Dogs returns a "dog" image
+func (client *Client) Dogs() (interface{}, error) {
 	return client.MakeRequest("dogs", url.Values{})
 }
 
-func (client *Client) Drake(top, bottom string) ([]byte, error) {
+// Drake returns a "drake meme" image
+func (client *Client) Drake(top, bottom string) (interface{}, error) {
 	return client.MakeRequest("drake", url.Values{
 		"top":    {top},
 		"bottom": {bottom},
 	})
 }
 
-func (client *Client) Facts(text string) ([]byte, error) {
+// Facts returns a "facts" image
+func (client *Client) Facts(text string) (interface{}, error) {
 	return client.MakeRequest("facts", url.Values{
 		"text": {text},
 	})
 }
 
-func (client *Client) Filter(filter string, image url.URL) ([]byte, error) {
+// Filter returns a filtered image
+func (client *Client) Filter(filter string, image url.URL) (interface{}, error) {
 	switch filter {
 	case "blue", "b&w", "communist", "deepfry",
 		"gay", "invert", "jpegify", "pixelate",
@@ -114,60 +132,70 @@ func (client *Client) Filter(filter string, image url.URL) ([]byte, error) {
 	}
 }
 
-func (client *Client) Floor(image url.URL, text string) ([]byte, error) {
+// Floor returns a "floor" image
+func (client *Client) Floor(image url.URL, text string) (interface{}, error) {
 	return client.MakeRequest("floor", url.Values{
 		"image": {image.String()},
 		"text":  {text},
 	})
 }
 
-func (client *Client) Fml() ([]byte, error) {
+// Fml returns an "fml" line
+func (client *Client) Fml() (interface{}, error) {
 	return client.MakeRequest("fml", url.Values{})
 }
 
-func (client *Client) JokeOverHead(image url.URL) ([]byte, error) {
+// JokeOverHead returns a "joke over head" image
+func (client *Client) JokeOverHead(image url.URL) (interface{}, error) {
 	return client.MakeRequest("jokeoverhead", url.Values{
 		"image": {image.String()},
 	})
 }
 
-func (client *Client) Pornhub(text, text2 string) ([]byte, error) {
+// Pornhub returns a "pornhub" image
+func (client *Client) Pornhub(text, text2 string) (interface{}, error) {
 	return client.MakeRequest("pornhub", url.Values{
 		"text":  {text},
 		"text2": {text2},
 	})
 }
 
-func (client *Client) SadCat() ([]byte, error) {
+// SadCat returns a "sad cat" image
+func (client *Client) SadCat() (interface{}, error) {
 	return client.MakeRequest("sadcat", url.Values{})
 }
 
-func (client *Client) Salty(image url.URL) ([]byte, error) {
+// Salty returns a "salty" image
+func (client *Client) Salty(image url.URL) (interface{}, error) {
 	return client.MakeRequest("salty", url.Values{
 		"image": {image.String()},
 	})
 }
 
-func (client *Client) Scroll(text string) ([]byte, error) {
+// Scroll returns a "scroll" image
+func (client *Client) Scroll(text string) (interface{}, error) {
 	return client.MakeRequest("scroll", url.Values{
 		"image": {text},
 	})
 }
 
-func (client *Client) Shame(image url.URL) ([]byte, error) {
+// Shame returns a "shame" image
+func (client *Client) Shame(image url.URL) (interface{}, error) {
 	return client.MakeRequest("shame", url.Values{
 		"image": {image.String()},
 	})
 }
 
-func (client *Client) Ship(user, user2 url.URL) ([]byte, error) {
+// Ship returns a "ship" image
+func (client *Client) Ship(user, user2 url.URL) (interface{}, error) {
 	return client.MakeRequest("salty", url.Values{
 		"user":  {user.String()},
 		"user2": {user2.String()},
 	})
 }
 
-func (client *Client) Supreme(text string, dark, light bool) ([]byte, error) {
+// Supreme returns a "supreme" image
+func (client *Client) Supreme(text string, dark, light bool) (interface{}, error) {
 	return client.MakeRequest("supreme", url.Values{
 		"text":  {text},
 		"dark":  {strconv.FormatBool(dark)},
@@ -175,14 +203,16 @@ func (client *Client) Supreme(text string, dark, light bool) ([]byte, error) {
 	})
 }
 
-func (client *Client) Trash(face, trash url.URL) ([]byte, error) {
+// Trash returns a "trash" image
+func (client *Client) Trash(face, trash url.URL) (interface{}, error) {
 	return client.MakeRequest("trash", url.Values{
 		"face":  {face.String()},
 		"trash": {trash.String()},
 	})
 }
 
-func (client *Client) What(image url.URL) ([]byte, error) {
+// What returns a "what" image
+func (client *Client) What(image url.URL) (interface{}, error) {
 	return client.MakeRequest("what", url.Values{
 		"image": {image.String()},
 	})
