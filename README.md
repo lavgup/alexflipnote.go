@@ -4,12 +4,15 @@ A modern and small API wrapper for the [AlexFlipnote API](https://api.alexflipno
 ### Simple
 ```go
 package main
+
 import (
     "fmt"
     alexflipnote "github.com/lavgup/alexflipnote.go"
 )
+
 func main() {
     client := alexflipnote.NewClient("TOKEN")
+    
     body, err := client.Facts("butch and sundance are back, baby!")
     if err != nil {
         fmt.Println(err)
@@ -22,11 +25,13 @@ func main() {
 ### Image
 ```go
 package main
+
 import (
     "fmt"
     alexflipnote "github.com/lavgup/alexflipnote.go"
     "net/url"
 )
+
 func main() {
     client := alexflipnote.NewClient("TOKEN")
     
@@ -35,12 +40,16 @@ func main() {
     if err != nil {
         fmt.Println(err)
     }
+    
     body, err := client.AmIAJoke(parsedUrl)
     if err != nil {
         fmt.Println(err)
     }
+    
     // WARNING: This will spam your console
     fmt.Printf("Received bytes: %s", body)
 }
 ```
-The image returns are of type `[]byte`, so to send it via discordgo, wrap it with a Buffer e.g `session.ChannelFileSend(id, "image.png", bytes.NewBuffer(image))`
+The image returns are of type `[]byte`, so to send it via discordgo, wrap it with a Buffer e.g `session.ChannelFileSend(id, "image.png", bytes.NewBuffer(image))`.
+
+Endpoints which return JSON are converted to maps.
