@@ -55,7 +55,15 @@ func (client *Client) MakeRequest(endpoint string, params url.Values) (interface
 		return nil, fmt.Errorf("request failed, status code %s", strconv.Itoa(res.StatusCode))
 	}
 
-	defer res.Body.Close()
+	defer func() {
+		rerr := res.Body.Close()
+		if rerr != nil {
+			err = rerr
+		}
+	}()
+	if err != nil {
+		return nil, err
+	}
 
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
